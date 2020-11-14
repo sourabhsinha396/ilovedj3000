@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block body %}
+  {% include 'blogs/snippets/_jumbotron.html' %}
+  <div class="container">
+	  <div class="row">
+	  {% for obj in object_list %}
+	    <div class="col">
+	      {% include 'blogs/snippets/_cards.html' %}
+	    	{% if forloop.counter|divisibleby:3 %}
+	    	  </div></div><div class="row my-2">
+	    	{% else %}
+	    	  </div>
+	    	{% endif %}
+	  {% endfor %}
+  </div>
+{% endblock %}

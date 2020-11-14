@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+	<div class="container">
+		<div class="row justify-center">
+			<div class="col-3">
+			</div>
+			<div class="col-6 shadow p-3 mb-5 bg-white rounded my-3">
+				<h1 class="h3 text-center">Contact Me</h1>
+				<form method="post">
+				    {% csrf_token %}
+
+				    {% for hidden in form.hidden_fields %}
+				      {{ hidden }}
+				    {% endfor %}
+
+				    {% for field in form.visible_fields %}
+				      <div class="form-group">
+				        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+				        {{ field|add_class:'form-control' }}
+				        {% for error in field.errors %}
+				          <span class="help-block">{{ error }}</span>
+				        {% endfor %}
+				      </div>
+				    {% endfor %}
+
+				    <div class="form-group">
+				      <button type="submit" class="btn btn-dark">
+				        Save
+				      </button>
+				      <a href="/" class="btn btn-default">Cancel</a>
+				    </div>
+			    </form>
+			</div>
+			<div class="col-3">
+			</div>
+		</div>
+	</div>
+{% endblock %}

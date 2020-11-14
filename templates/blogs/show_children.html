@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+{% load mptt_tags %}
+
+{% block body %}
+<div class="container">
+	<h1 class="display-4">Spoiler Index</h1>
+	<ul class="root">
+	    {% recursetree object_list %}
+	        <li>
+	            <p class="bg-light nav-dark">
+	            	<a href="{% url 'blogs:detail' slug=node.slug %}">
+	            		{{ node.title }}
+	            	</a>
+	            </p>
+	            {% if not node.is_leaf_node %}
+	                <ul class="children">
+	                    {{ children }}
+	                </ul>
+	            {% endif %}
+	        </li>
+	    {% endrecursetree %}
+	</ul>
+</div>
+{% endblock body %}

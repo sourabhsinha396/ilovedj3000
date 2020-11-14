@@ -1,0 +1,11 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+  	{% if obj.image %}
+  		<img src={{obj.image.url}} class="card-img-top" alt="No image">
+  	{% endif %}
+    <a href="{{obj.get_absolute_url}}">
+    	<h5 class="card-title">{{obj.title}}</h5>
+    </a>
+    <p class="card-text">{{obj.description}}</p>
+  </div>
+</div>

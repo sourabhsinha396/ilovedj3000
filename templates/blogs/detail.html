@@ -1,0 +1,29 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/monokai-sublime.min.css">
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="display-4" style="color: #313638">{{object.title}}</h1>
+		{% if object.image %}
+      		<img src="{{object.image.url}}" height="175px" alt="Card image cap">
+    	{% endif %}
+		<p class="lead">{{object.content|safe}}</p>
+		<p class="lead">{{object.price}}</p>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', (event) => {
+	  document.querySelectorAll('pre code').forEach((block) => {
+	    hljs.highlightBlock(block);
+	  });
+	});
+</script>
+<script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/highlight.min.js"></script>
+{% endblock %}
