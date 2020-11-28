@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'uh@@fk@w7xm$5vn#l548=f5zqy16^06&5*7b%s8(7f)!3!pv)n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['ilovedj.herokuapp.com','www.ilovedjango3000.com','ilovedjango3000.com','127.0.0.1']
 
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'mptt',
     'hitcount',
     'widget_tweaks',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -127,13 +128,13 @@ USE_L10N = True
 USE_TZ = True
 
 #static
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static_dir')
-]
-STATIC_ROOT =os.path.join(BASE_DIR,'static_root')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media_root')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR,'static_dir')
+# ]
+# STATIC_ROOT =os.path.join(BASE_DIR,'static_root')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR,'media_root')
 
 #Ckeditor configuration
 CKEDITOR_CONFIGS = {
@@ -154,8 +155,27 @@ MESSAGE_TAGS = {
         messages.ERROR: 'alert-danger',
  }
 
+AWS_ACCESS_KEY_ID = 'AKIAYJCRBVLSYBCCMJL7'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'dj3000'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_DEFAULT_ACL = 'public-read'
+
+AWS_LOCATION = 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_dir'),
+]
+
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'blog_core.storages.MediaStore'
+# MEDIA_URL = '/media/'
+
  #Postges
 import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['CONN_MAX_AGE'] = 500
+
+
