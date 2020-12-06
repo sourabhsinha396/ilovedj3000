@@ -141,6 +141,7 @@ CKEDITOR_CONFIGS = {
         'extraPlugins': ','.join(
             [
                 'codesnippet',
+                'youtube',
             ]),
     },
 }
