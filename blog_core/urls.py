@@ -7,6 +7,7 @@ urlpatterns = [
     path('adminra/', admin.site.urls),
     path('',include("apps.blogs.urls")),
     path('',include("apps.general_pages.urls")),
+    path('',include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     #third partyyyy
     'ckeditor',
+    'ckeditor_uploader',
     'mptt',
     'hitcount',
     'widget_tweaks',
@@ -143,6 +144,7 @@ CKEDITOR_CONFIGS = {
             ]),
     },
 }
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 #django messagess
 MESSAGE_TAGS = {

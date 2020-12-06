@@ -1,10 +1,9 @@
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.models import MPTTModel, TreeForeignKey
 
 from django.db import models
 from django.urls import reverse
-
-
 
 
 class Blog(MPTTModel):
@@ -13,7 +12,7 @@ class Blog(MPTTModel):
 	parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 	image = models.ImageField(blank=True,null=True)
 	description = models.CharField(max_length=200)
-	content = RichTextField()
+	content = RichTextUploadingField()
 	is_active = models.BooleanField(default=False)
 	is_free = models.BooleanField(default=False)
 	price = models.PositiveSmallIntegerField(blank=True,null=True)
