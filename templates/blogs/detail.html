@@ -4,16 +4,34 @@
 {% block head %}
 <link rel="stylesheet"
       href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/monokai-sublime.min.css">
+      <style type="text/css">
+      	pre{
+      		border-radius: 10px;
+      	}
+      </style>
 {% endblock %}
 
 {% block body %}
+	<div class="jumbotron jumbotron-fluid">
+	  <div class="container">
+		<h2 class="display-4" style="color: #313638">{{object.title}}</h1>
+	  </div>
+	</div>
+
 	<div class="container">
-		<h1 class="display-4" style="color: #313638">{{object.title}}</h1>
-		{% if object.image %}
-      		<img src="{{object.image.url}}" height="175px" alt="Card image cap">
-    	{% endif %}
-		<p class="lead">{{object.content|safe}}</p>
-		<p class="lead">{{object.price}}</p>
+		<div class="row">
+			<div class="col-sm-0 col-md-2 col-lg-1"></div>
+
+			<div class="col-sm-12 col-md-12 col-lg-10" style="background-color: #ffffff">
+				{% if object.image %}
+		      		<img class="img-fluid" src="{{object.image.url}}" height="175px" alt="Card image cap">
+		    	{% endif %}
+				<p class="lead text-justify">{{object.content|safe}}</p>
+				<p class="lead">{{object.price}}</p>
+			</div>
+
+			<div class="col-sm-0 col-md-2 col-lg-1"></div>
+		</div>
 	</div>
 {% endblock %}
 
