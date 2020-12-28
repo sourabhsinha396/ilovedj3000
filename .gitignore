@@ -36,3 +36,5 @@ scripts/bash_aliases
 .env
 env
 db.sqlite3
+
+static_root

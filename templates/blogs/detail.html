@@ -14,7 +14,13 @@
 {% block body %}
 	<div class="jumbotron jumbotron-fluid">
 	  <div class="container">
-		<h2 class="display-4" style="color: #313638">{{object.title}}</h1>
+	  	<div class="row">
+		  	<div class="col-3"></div>
+		  	<div class="col-6">
+		  		<h1 class="display-5" style="color: #313638">{{object.title}}</h1>
+		  	</div>
+		  	<div class="col-3"></div>
+		</div>
 	  </div>
 	</div>
 
@@ -27,7 +33,6 @@
 		      		<img class="img-fluid" src="{{object.image.url}}" height="175px" alt="Card image cap">
 		    	{% endif %}
 				<p class="lead text-justify">{{object.content|safe}}</p>
-				<p class="lead">{{object.price}}</p>
 			</div>
 
 			<div class="col-sm-0 col-md-2 col-lg-1"></div>
