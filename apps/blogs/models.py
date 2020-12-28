@@ -43,16 +43,13 @@ def compress_uploaded_image(sender, instance, **kwargs):
         article = sender.objects.select_for_update().get(pk=instance.pk)
     except sender.DoesNotExist:
         # Its a new object
-        print("new")
         instance.image = compress_image(instance.image)
     else:
         if article.image != instance.image:
-            print("exising")
             instance.image = compress_image(instance.image)
 
 
 def compress_image(uploaded_image):
-    print("compressed")
     image = Image.open(uploaded_image)
     temp_image = image.convert('RGB')
     temp_image = temp_image.resize((1080,570))
@@ -65,5 +62,4 @@ def compress_image(uploaded_image):
 
 @receiver(models.signals.post_delete, sender=Blog)
 def remove_image_from_s3(sender, instance, using, **kwargs):
-	print(sender,instance,using)
 	instance.image.delete(save=False)
