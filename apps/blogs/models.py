@@ -43,9 +43,10 @@ def compress_uploaded_image(sender, instance, **kwargs):
         article = sender.objects.select_for_update().get(pk=instance.pk)
     except sender.DoesNotExist:
         # Its a new object
-        instance.image = compress_image(instance.image)
+        if instance.image:
+        	instance.image = compress_image(instance.image)
     else:
-        if article.image != instance.image:
+        if instance.image and article.image != instance.image:
             instance.image = compress_image(instance.image)
 
 
