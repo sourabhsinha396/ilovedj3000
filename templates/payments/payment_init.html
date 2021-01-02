@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+{% load widget_tweaks %}
+
+{% block body %}
+	<div class="container">
+		<div class="row justify-center">
+			<div class="col-3">
+			</div>
+			<div class="col-6 shadow p-3 mb-5 bg-white rounded my-3">
+				<h1 class="h3 text-center">Pre-Payment Details</h1>
+				<form method="post">
+				    {% csrf_token %}
+
+				    {% for hidden in form.hidden_fields %}
+				      {{ hidden }}
+				    {% endfor %}
+
+				    {% for field in form.visible_fields %}
+				      <div class="form-group">
+				        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+				        {{ field|add_class:'form-control' }}
+				        {% for error in field.errors %}
+				          <span class="help-block">{{ error }}</span>
+				        {% endfor %}
+				      </div>
+				    {% endfor %}
+
+				    <div class="form-group">
+				      <button type="submit" class="btn btn-dark">
+				        Submit
+				      </button>
+				      <a href="/" class="btn btn-default">Cancel</a>
+				    </div>
+			    </form>
+			</div>
+			<div class="col-3">
+			</div>
+		</div>
+    </div>
+    
+{% if response %}
+<form action="{% url 'payments:success' blog.slug %}" method="POST">
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="rzp_test_Ehs4o4pAQmY33e"
+        data-amount={{response.amount}}
+        data-currency={{response.currency}}
+        data-order_id={{response.id}}
+        data-buttontext="Pay with Razorpay"
+        data-name="ILoveDjango3000"
+        data-description=""
+        data-image=""
+        data-prefill.name={{request.user.username}}
+        data-prefill.email={{request.user.email}}
+        data-theme.color="#F37254"
+    ></script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+    </form>
+{% endif %}
+{% endblock %}

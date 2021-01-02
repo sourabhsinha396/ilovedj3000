@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #custom apps
     'apps.general_pages',
     'apps.blogs',
+    'apps.payments',
 
     #third partyyyy
     'ckeditor',

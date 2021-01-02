@@ -29,6 +29,8 @@
 			<div class="col-sm-0 col-md-2 col-lg-1"></div>
 
 			<div class="col-sm-12 col-md-12 col-lg-10" style="background-color: #ffffff">
+				{% include "payments/snippets/breadcrum.html" %}
+
 				{% if object.image %}
 		      		<img class="img-fluid" src="{{object.image.url}}" height="175px" alt="Card image cap">
 		    	{% endif %}

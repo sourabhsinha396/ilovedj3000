@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% load mptt_tags %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1 class="display-5">{{blog.title}}</h1>
+    </div>
+    <div>
+        <p class="lead mb-0">This is a premium content, You need to buy it to access the content. This will only unlock {{blog.title|title}}</p>
+		<p class="mb-3 lead font-weight-normal"><a href="{% url 'payments:payment' blog.slug %}" class="text-danger">Buy this for {{blog.price}} INR</a></p>
+
+    </div>
+</div>
+{% endblock body %}

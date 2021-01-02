@@ -4,12 +4,23 @@
 {% block body %}
 <div class="container">
 	<h1 class="display-4">Spoiler Index</h1>
+	{% include "payments/snippets/breadcrum.html" %}
+
+	{% if is_premium and not has_access %}
+		<div class="premium-msg">
+			<p class="lead font-weight-normal mb-0">This is a premium content, You need to buy it to access the content. Buying this will unlock the following:</p>
+			<p class="mb-3 lead font-weight-normal"><a href="{% url 'payments:payment' object.slug %}" class="text-danger">Buy this for {{object.price}} INR</a></p>
+		</div>
+	{% endif %}
 	<ul class="root">
 	    {% recursetree object_list %}
 	        <li>
 	            <p class="bg-light nav-dark">
-	            	<a href="{% url 'blogs:detail' slug=node.slug %}">
-	            		{{ node.title }}
+	            	<a href="{% url 'blogs:detail' slug=node.slug %}" class="{% if node.is_root_node %}font-weight-bold{% endif %}">
+						{{ node.title }}
+						{% if not node.is_free %}
+							<i class="fa fa-money text-dark" aria-hidden="true"></i>
+						{% endif %}
 	            	</a>
 	            </p>
 	            {% if not node.is_leaf_node %}

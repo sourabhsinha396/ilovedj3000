@@ -7,6 +7,7 @@ from io import BytesIO
 
 from django.db import models
 from django.urls import reverse
+from django.forms import ValidationError
 from django.dispatch import receiver
 from django.db import transaction
 from django.db.models.signals import pre_save
@@ -16,15 +17,20 @@ from apps.blogs.utils import UploadWrapper
 
 
 class Blog(MPTTModel):
+	type_choices = (
+		(1,"Blog"),
+		(2,"Projects"),
+	)
 	title = models.CharField(max_length=255)
 	slug = models.SlugField(max_length=255)
+	type_of = models.IntegerField(choices=type_choices,default=1)
 	parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 	image = models.ImageField(upload_to = UploadWrapper('thumbnails'), blank=True,null=True)
 	description = models.CharField(max_length=200)
 	content = RichTextUploadingField()
 	is_active = models.BooleanField(default=False)
 	is_free = models.BooleanField(default=False)
-	price = models.PositiveSmallIntegerField(blank=True,null=True)
+	price = models.PositiveSmallIntegerField(blank=True,null=True,help_text="In INR")
 
 	class MPTTMeta:
 		order_insertion_by = ['title']
@@ -34,6 +40,10 @@ class Blog(MPTTModel):
 
 	def get_absolute_url(self):
 		return reverse("blogs:detail",kwargs={"slug":self.slug})
+
+	def clean(self):
+		if not self.is_free and not self.price:
+			raise ValidationError("Provide either free or price.")
 
 
 @receiver(pre_save, sender=Blog)
