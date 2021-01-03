@@ -47,12 +47,12 @@ class Blog(MPTTModel):
 
 	def get_active_previous_sibling(self):
 		previous = self.get_previous_sibling()
-		if previous.is_active:
+		if previous and previous.is_active:
 			return previous
 
 	def get_active_next_sibling(self):
 		next = self.get_next_sibling()
-		if next.is_active:
+		if next and next.is_active:
 			return next
 
 
