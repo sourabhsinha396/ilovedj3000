@@ -45,6 +45,16 @@ class Blog(MPTTModel):
 		if not self.is_free and not self.price:
 			raise ValidationError("Provide either free or price.")
 
+	def get_active_previous_sibling(self):
+		previous = self.get_previous_sibling()
+		if previous.is_active:
+			return previous
+
+	def get_active_next_sibling(self):
+		next = self.get_next_sibling()
+		if next.is_active:
+			return next
+
 
 @receiver(pre_save, sender=Blog)
 @transaction.atomic

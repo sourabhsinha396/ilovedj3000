@@ -35,6 +35,20 @@
 		      		<img class="img-fluid" src="{{object.image.url}}" height="175px" alt="Card image cap">
 		    	{% endif %}
 				<p class="lead text-justify">{{object.content|safe}}</p>
+				
+				<div>
+					{% with object.get_active_previous_sibling as previous %}
+						{% if previous %}
+							<a class="btn btn-dark float-left text-white mb-3" href="{{previous.get_absolute_url}}">Prev: {{previous.title|truncatewords:3}}</a>
+						{% endif %}
+					{% endwith %}
+
+					{% with object.get_active_next_sibling as next %}
+						{% if next %}
+							<a class="btn btn-dark float-right text-white mb-3" href="{{next.get_absolute_url}}">Next: {{next.title|truncatewords:3}}</a>
+						{% endif %}
+					{% endwith %}
+				</div>
 			</div>
 
 			<div class="col-sm-0 col-md-2 col-lg-1"></div>
