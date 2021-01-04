@@ -1,5 +1,7 @@
 import uuid
 import os
+from functools import wraps
+
 from django.utils.deconstruct import deconstructible
 from django.shortcuts import get_object_or_404
 from django.apps import apps
@@ -29,3 +31,13 @@ class UploadWrapper(object):
 #                 return payment_required(request,*args,**kwargs)
 #     wrap.__doc__ = function.__doc__
 #     return wrap
+
+
+def disable_for_loaddata(signal_handler):
+    @wraps(signal_handler)
+    def wrapper(*args, **kwargs):
+        print(args,kwargs)
+        if kwargs.get('raw'):
+            return
+        signal_handler(*args, **kwargs)
+    return wrapper

@@ -13,7 +13,7 @@ from django.db import transaction
 from django.db.models.signals import pre_save
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from apps.blogs.utils import UploadWrapper
+from apps.blogs.utils import UploadWrapper,disable_for_loaddata
 
 
 class Blog(MPTTModel):
@@ -57,6 +57,7 @@ class Blog(MPTTModel):
 
 
 @receiver(pre_save, sender=Blog)
+@disable_for_loaddata
 @transaction.atomic
 def compress_uploaded_image(sender, instance, **kwargs):
     try:

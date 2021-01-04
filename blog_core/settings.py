@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'hitcount',
     'widget_tweaks',
     'storages',
+    'dbbackup',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -156,9 +158,9 @@ MESSAGE_TAGS = {
         messages.ERROR: 'alert-danger',
  }
 
-AWS_ACCESS_KEY_ID = 'AKIAYJCRBVLSYBCCMJL7'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'dj3000'
+AWS_ACCESS_KEY_ID = os.environ.get("AwsDjKey")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AwsDjSecret")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AwsDjBucket")
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 AWS_DEFAULT_ACL = 'public-read'
@@ -180,3 +182,20 @@ DATABASES['default'].update(db_from_env)
 DATABASES['default']['CONN_MAX_AGE'] = 500
 
 
+#db backup filesystem storage
+# DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# DBBACKUP_STORAGE_OPTIONS = {'location': './backup'}
+
+DBBACKUP_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DBBACKUP_STORAGE_OPTIONS = {
+    'access_key': os.environ.get("AwsDjKey"),
+    'secret_key': os.environ.get("AwsDjSecret"),
+    'bucket_name': os.environ.get("AwsDjBucket"),
+    'default_acl': 'private',
+    'location': "backups/"
+}
+
+#cron-job
+CRON_CLASSES = [
+    "apps.blogs.cron.DbBackup",
+]
