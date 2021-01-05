@@ -1,13 +1,12 @@
 from .base import *
 
-
 import os
 from pathlib import Path
-
 
 DEBUG = False
 
 ALLOWED_HOSTS = ['ilovedj.herokuapp.com','www.ilovedjango3000.com','ilovedjango3000.com']
+
 
 AWS_ACCESS_KEY_ID = os.environ.get("AwsDjKey")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AwsDjSecret")
@@ -24,7 +23,6 @@ STATICFILES_DIRS = [
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'blog_core.storages.MediaStore'
-# MEDIA_URL = '/media/'
 
  #Postges
 import dj_database_url
