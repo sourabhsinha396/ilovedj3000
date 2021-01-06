@@ -31,6 +31,7 @@ class Blog(MPTTModel):
 	is_active = models.BooleanField(default=False)
 	is_free = models.BooleanField(default=False)
 	price = models.PositiveSmallIntegerField(blank=True,null=True,help_text="In INR")
+	updated = models.DateTimeField(auto_now=True)
 
 	class MPTTMeta:
 		order_insertion_by = ['title']

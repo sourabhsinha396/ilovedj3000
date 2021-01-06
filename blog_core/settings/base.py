@@ -26,11 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
 
     #custom apps
     'apps.general_pages',
     'apps.blogs',
     'apps.payments',
+    'apps.seo',
 
     #third partyyyy
     'ckeditor',
