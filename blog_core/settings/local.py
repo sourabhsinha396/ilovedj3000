@@ -42,11 +42,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media_root')
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
-        'extraPlugins': ','.join(
-            [
-                'codesnippet',
-                'youtube',
-            ]),
     },
 }
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': 'backup/'}
+
+#crontab
+CRONJOBS = [
+    ('*/2 * * * *', 'blog_core.cron.my_job')
+]
+
+CRONTAB_COMMAND_SUFFIX = '2>&1'

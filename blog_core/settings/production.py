@@ -39,7 +39,3 @@ DBBACKUP_STORAGE_OPTIONS = {
     'location': "backups/"
 }
 
-#cron-job
-CRON_CLASSES = [
-    "apps.blogs.cron.DbBackup",
-]

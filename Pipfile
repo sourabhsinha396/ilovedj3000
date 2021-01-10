@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-mptt = "*"
+django-storages = "*"
+boto3 = "*"
+django-hitcount = "*"
+django-cron = "*"
+pillow = "*"
+psycopg2 = "*"
+dj-database-url = "*"
+django-ckeditor = "*"
+django-widget-tweaks = "*"
+razorpay = "*"
+django-dbbackup = "*"
+django-crontab = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
